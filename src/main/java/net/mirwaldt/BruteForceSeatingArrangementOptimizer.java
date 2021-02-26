@@ -33,9 +33,9 @@ public class BruteForceSeatingArrangementOptimizer implements SeatingArrangement
         } else {
             final Map<List<String>, Integer> seatingsByHappiness = new LinkedHashMap<>();
             for (String name : names) {
-                SortedSet<String> restNames = new TreeSet<>(names);
+                final SortedSet<String> restNames = new TreeSet<>(names);
                 restNames.remove(name);
-                List<String> newSeating = new ArrayList<>(seating);
+                final List<String> newSeating = new ArrayList<>(seating);
                 newSeating.add(name);
                 seatingsByHappiness.putAll(seat(restNames, newSeating));
             }

@@ -25,7 +25,7 @@ public class SeatingArrangementOptimizerTest {
     }
 
     @Test
-    void test_example() {
+    void test_calculateHappiness() {
         BruteForceSeatingArrangementOptimizer seatingArrangementOptimizer =
                 new BruteForceSeatingArrangementOptimizer();
         addPreferences(seatingArrangementOptimizer);
