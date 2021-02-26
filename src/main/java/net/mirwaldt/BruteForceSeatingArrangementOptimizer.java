@@ -16,7 +16,8 @@ public class BruteForceSeatingArrangementOptimizer implements SeatingArrangement
         final SortedSet<String> allNames = preferences.keySet().stream().
                 flatMap(Collection::stream).collect(Collectors.toCollection(TreeSet::new));
         if (2 <= allNames.size()) {
-            final Map<List<String>, Integer> happinessBySeating = seat(allNames, Collections.emptyList());
+            final Map<List<String>, Integer> happinessBySeating = new LinkedHashMap<>();
+            seat(allNames, Collections.emptyList(), happinessBySeating);
             Map.Entry<List<String>, Integer> seatingWithMaxHappiness =
                     happinessBySeating.entrySet().stream()
                             .max(Comparator.comparingInt(Map.Entry::getValue)).get();
@@ -27,19 +28,17 @@ public class BruteForceSeatingArrangementOptimizer implements SeatingArrangement
         }
     }
 
-    private Map<List<String>, Integer> seat(SortedSet<String> names, List<String> seating) {
+    private void seat(SortedSet<String> names, List<String> seating, Map<List<String>, Integer> happinessBySeating) {
         if (names.isEmpty()) {
-            return Map.of(seating, calculateHappiness(seating));
+            happinessBySeating.put(seating, calculateHappiness(seating));
         } else {
-            final Map<List<String>, Integer> happinessBySeating = new LinkedHashMap<>();
             for (String name : names) {
                 final SortedSet<String> restNames = new TreeSet<>(names);
                 restNames.remove(name);
                 final List<String> newSeating = new ArrayList<>(seating);
                 newSeating.add(name);
-                happinessBySeating.putAll(seat(restNames, newSeating));
+                seat(restNames, newSeating, happinessBySeating);
             }
-            return happinessBySeating;
         }
     }
 
