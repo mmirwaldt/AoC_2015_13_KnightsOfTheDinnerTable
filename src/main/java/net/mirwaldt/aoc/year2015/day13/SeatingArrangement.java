@@ -1,4 +1,4 @@
-package net.mirwaldt;
+package net.mirwaldt.aoc.year2015.day13;
 
 import java.util.List;
 import java.util.Objects;
